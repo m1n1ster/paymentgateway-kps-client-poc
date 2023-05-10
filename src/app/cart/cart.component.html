@@ -1,0 +1,61 @@
+<h3 *ngIf="!pay">Cart</h3>
+<h3 *ngIf="pay">Procedi con l'acquisto</h3>
+
+<div *ngIf="!pay">
+  <div id="cart-container">
+    <p *ngIf="items.length == 0">Il carrello è vuoto.</p>
+    <div *ngFor="let item of items" class="cart-item">
+      <span>{{ item.name }}</span>
+      <span>€ {{ item.price }}</span>
+    </div>
+    <br />
+    <div *ngIf="items.length != 0">
+      <p>Scegli il metodo di pagamento</p>
+      <br />
+      <span>
+        <input
+          (click)="
+            changeUrlService(
+              'http://localhost:8090/orchestrator/create/payment/creditcard'
+            )
+          "
+          type="radio"
+          id="cc"
+          name="paymentMethod"
+          value="cc"
+        />
+        <label for="creditcard">Carta di credito</label>
+        <input
+          (click)="
+            changeUrlService(
+              'http://localhost:8090/orchestrator/create/payment/paypal'
+            )
+          "
+          type="radio"
+          id="pp"
+          name="paymentMethod"
+          value="pp"
+        />
+        <label for="paypal">Paypal</label>
+      </span>
+    </div>
+    <br />
+    <div *ngIf="items.length != 0">
+      <button (click)="goToPay()">Paga</button>
+    </div>
+  </div>
+</div>
+<div id="pay-container" *ngIf="pay">
+  <iframe
+    width="900px"
+    height="650px"
+    [src]="iframeUrl"
+    sandbox="allow-same-origin allow-top-navigation allow-scripts allow-forms allow-top-navigation-by-user-activation allow-popups-to-escape-sandbox"
+    frameborder="0"
+    allowfullscreen="false"
+    scrolling="no"
+    onload="resizeIframe(this)"
+    onerror="alert('failed function');"
+  >
+  </iframe>
+</div>

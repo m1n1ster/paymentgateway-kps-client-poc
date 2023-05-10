@@ -1,0 +1,13 @@
+<h2>Biglietti</h2>
+
+<div *ngFor="let product of products">
+  <h3>
+    <a [title]="product.name">
+      {{ product.name }}
+    </a>
+  </h3>
+  <p *ngIf="product.description">Descrizione: {{ product.description }}</p>
+  <p *ngIf="product.description">Prezzo: € {{ product.price }}</p>
+
+  <button (click)="addToCart(product)">Acquista</button>
+</div>
