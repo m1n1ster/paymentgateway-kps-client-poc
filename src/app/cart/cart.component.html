@@ -1,6 +1,33 @@
 <h3 *ngIf="!pay">Cart</h3>
 <h3 *ngIf="pay">Procedi con l'acquisto</h3>
 
+<script type="application/javascript">
+
+  /*function resizeIFrameToFitContent( iFrame ) {
+
+      iFrame.width  = iFrame.contentWindow.document.body.scrollWidth;
+      iFrame.height = iFrame.contentWindow.document.body.scrollHeight;
+  }
+
+  $( document ).ready(function() {
+        function setOutcome(message){
+            $( "#" )
+        }
+    });
+
+  window.addEventListener('DOMContentLoaded', function(e) {
+
+      var iFrame = document.getElementById( 'pay-frame' );
+      resizeIFrameToFitContent( iFrame );
+
+      // or, to resize all iframes:
+      var iframes = document.querySelectorAll("iframe");
+      for( var i = 0; i < iframes.length; i++) {
+          resizeIFrameToFitContent( iframes[i] );
+      }
+  } );*/
+</script>
+
 <div *ngIf="!pay">
   <div id="cart-container">
     <p *ngIf="items.length == 0">Il carrello è vuoto.</p>
@@ -45,16 +72,17 @@
     </div>
   </div>
 </div>
+<div id="outcome"></div>
 <div id="pay-container" *ngIf="pay">
   <iframe
+    id="pay-frame"
     width="900px"
     height="650px"
     [src]="iframeUrl"
-    sandbox="allow-same-origin allow-top-navigation allow-scripts allow-forms allow-top-navigation-by-user-activation allow-popups-to-escape-sandbox"
+    sandbox="allow-modals allow-same-origin allow-top-navigation allow-scripts allow-forms allow-top-navigation-by-user-activation allow-popups-to-escape-sandbox allow-popups"
     frameborder="0"
     allowfullscreen="false"
     scrolling="no"
-    onload="resizeIframe(this)"
     onerror="alert('failed function');"
   >
   </iframe>
