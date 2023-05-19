@@ -4,12 +4,15 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({ providedIn: 'root' })
 export class CartService {
   items = [];
-  createPaymentURL: string;
+  paypalPaymentURL: string;
+  creditCardPaymentURL: string;
   responseUrl: string;
 
   constructor(private httpClient: HttpClient) {
-    this.createPaymentURL =
+    this.creditCardPaymentURL =
       'http://localhost:8090/orchestrator/create/payment/creditcard';
+    this.paypalPaymentURL =
+      'http://localhost:8090/orchestrator/create/payment/paypal';
   }
 
   addToCart(product) {
@@ -25,7 +28,11 @@ export class CartService {
     return this.items;
   }
 
-  public createPayment() {
-    return this.httpClient.get(this.createPaymentURL);
+  public loadPayPalPayment() {
+    return this.httpClient.get(this.paypalPaymentURL);
+  }
+
+  public loadCreditCardPayment() {
+    return this.httpClient.get(this.creditCardPaymentURL);
   }
 }

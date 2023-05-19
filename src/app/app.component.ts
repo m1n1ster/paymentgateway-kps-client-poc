@@ -18,11 +18,9 @@ export class AppComponent {
   @HostListener('window:message', ['$event'])
   goHome($event: MessageEvent) {
     if ($event.data['payment'] == 'SUCCESS') {
-      console.log('catched');
       alert('Pagamento effettuato con successo');
       this.router.navigate(['/']);
     } else if ($event.data['payment'] == 'FAILURE') {
-      console.log('catched');
       alert('Errore nella procedura di pagamento');
       this.router.navigate(['/']);
     }

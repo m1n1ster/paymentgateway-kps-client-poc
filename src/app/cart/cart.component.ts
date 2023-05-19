@@ -9,7 +9,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class CartComponent {
   items = this.cartService.getItems();
-  pay = false;
+  creditCard = false;
   iframeUrl;
 
   constructor(
@@ -17,19 +17,27 @@ export class CartComponent {
     private domSanitizer: DomSanitizer
   ) {}
 
-  goToPay() {
-    this.cartService.createPayment().subscribe((data) => {
+  loadPayPalButton() {
+    this.cartService.loadPayPalPayment().subscribe((data) => {
       console.log(data);
       this.iframeUrl = data['externalPaymentUrl'];
       this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
         this.iframeUrl
       );
       //this.domSanitizer.sanitize(SecurityContext.URL, url);
-      this.pay = true;
+      this.creditCard = true;
     });
   }
 
-  changeUrlService(paymentUrl) {
-    this.cartService.createPaymentURL = paymentUrl;
+  loadCredicarForm() {
+    this.cartService.loadCreditCardPayment().subscribe((data) => {
+      console.log(data);
+      this.iframeUrl = data['externalPaymentUrl'];
+      this.iframeUrl = this.domSanitizer.bypassSecurityTrustResourceUrl(
+        this.iframeUrl
+      );
+      //this.domSanitizer.sanitize(SecurityContext.URL, url);
+      this.creditCard = true;
+    });
   }
 }

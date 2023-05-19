@@ -37,21 +37,10 @@
     </div>
     <br />
     <div *ngIf="items.length != 0">
-      <p>Scegli il metodo di pagamento</p>
-      <br />
       <span>
-        <input
-          (click)="
-            changeUrlService(
-              'http://localhost:8090/orchestrator/create/payment/creditcard'
-            )
-          "
-          type="radio"
-          id="cc"
-          name="paymentMethod"
-          value="cc"
-        />
-        <label for="creditcard">Carta di credito</label>
+        <button for="creditcard" (click)="loadCredicarForm()">
+          Carta di credito
+        </button>
         <input
           (click)="
             changeUrlService(
@@ -64,16 +53,25 @@
           value="pp"
         />
         <label for="paypal">Paypal</label>
+        <iframe
+          id="pay-frame"
+          width="900px"
+          height="650px"
+          [src]="iframeUrl"
+          sandbox="allow-modals allow-same-origin allow-top-navigation allow-scripts allow-forms allow-top-navigation-by-user-activation allow-popups-to-escape-sandbox allow-popups"
+          frameborder="0"
+          allowfullscreen="false"
+          scrolling="no"
+          onerror="alert('failed function');"
+        >
+        </iframe>
       </span>
     </div>
     <br />
-    <div *ngIf="items.length != 0">
-      <button (click)="goToPay()">Paga</button>
-    </div>
   </div>
 </div>
 <div id="outcome"></div>
-<div id="pay-container" *ngIf="pay">
+<div id="pay-container" *ngIf="creditCard">
   <iframe
     id="pay-frame"
     width="900px"
